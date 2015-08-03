@@ -5,6 +5,7 @@ class MoviesController < ApplicationController
   # GET /movies.json
   def index
     @movies = Movie.all
+    # authorize Movie
   end
 
   # GET /movies/1
@@ -15,6 +16,7 @@ class MoviesController < ApplicationController
   # GET /movies/new
   def new
     @movie = Movie.new
+    authorize @movie
   end
 
   # GET /movies/1/edit
@@ -25,6 +27,8 @@ class MoviesController < ApplicationController
   # POST /movies.json
   def create
     @movie = Movie.new(movie_params)
+
+    authorize @movie
 
     respond_to do |format|
       if @movie.save
@@ -40,6 +44,7 @@ class MoviesController < ApplicationController
   # PATCH/PUT /movies/1
   # PATCH/PUT /movies/1.json
   def update
+    authorize @movie
     respond_to do |format|
       if @movie.update(movie_params)
         format.html { redirect_to @movie, notice: 'Movie was successfully updated.' }
